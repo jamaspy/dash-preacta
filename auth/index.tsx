@@ -1,13 +1,15 @@
 // import { compare } from 'bcryptjs';
 import type { NextAuthOptions } from "next-auth";
-
+import type { Adapter } from "next-auth/adapters";
 import GoogleProvider from "next-auth/providers/google";
+import { XataAdapter } from "@auth/xata-adapter";
+import { XataClient } from "@/xata/client";
 
 export const authOptions: NextAuthOptions = {
-  // adapter: XataAdapter(xata),
-  // pages: {
-  //   signIn: "/login",
-  // },
+  adapter: XataAdapter(XataClient) as Adapter,
+  pages: {
+    signIn: "/login",
+  },
   session: {
     strategy: "jwt",
   },
