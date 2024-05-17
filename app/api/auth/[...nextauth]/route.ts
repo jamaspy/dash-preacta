@@ -1,14 +1,15 @@
+import { XataClient } from "@/xata/client";
+import { XataAdapter } from "@auth/xata-adapter";
 import NextAuth from "next-auth";
-import GithubProvider from "next-auth/providers/github";
-
+import { Adapter } from "next-auth/adapters";
+import GoogleProvider from "next-auth/providers/google";
 export const authOptions = {
-  // Configure one or more authentication providers
+  adapter: XataAdapter(XataClient) as Adapter,
   providers: [
-    GithubProvider({
-      clientId: "YOUR_CLIENT",
-      clientSecret: "GITHUB_SECRET",
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
-    // ...add more providers here
   ],
 };
 

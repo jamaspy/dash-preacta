@@ -2,20 +2,42 @@ import { getAllJobs } from "@/actions/jobadder/get-jobs";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { getServerSession } from "next-auth";
+import { authOptions } from "./api/auth/[...nextauth]/route";
 export default async function Home() {
-  const allJobs = await getAllJobs();
+  const session = await getServerSession(authOptions);
+
   return (
     <main className="min-h-screen p-12 bg-gradient-to-br from-slate-100 to-slate-300">
       <nav className="flex flex-row items-center justify-end gap-8">
-        <Link href="dashboards" className="hover:text-[#1B83BD] font-semibold">
-          Dashbaords
-        </Link>
-        <Link href="settings" className="hover:text-[#1B83BD] font-semibold">
-          Settings
-        </Link>
-        <Link href="settings" className="hover:text-[#1B83BD] font-semibold">
-          Logout
-        </Link>
+        {!!session && (
+          <>
+            <Link
+              href="dashboards"
+              className="hover:text-[#1B83BD] font-semibold"
+            >
+              Dashbaords
+            </Link>
+            <Link
+              href="settings"
+              className="hover:text-[#1B83BD] font-semibold"
+            >
+              Settings
+            </Link>
+          </>
+        )}
+        {!session ? (
+          <Link
+            href="auth/signin"
+            className="hover:text-[#1B83BD] font-semibold"
+          >
+            Sign In
+          </Link>
+        ) : (
+          <Link href="settings" className="hover:text-[#1B83BD] font-semibold">
+            Logout
+          </Link>
+        )}
       </nav>
       <section className="min-h-[90vh] h-full flex flex-col md:flex-row gap-4">
         <div className="flex flex-col flex-1 items-start justify-center p-12">
