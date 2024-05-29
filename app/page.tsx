@@ -6,6 +6,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]/route";
 export default async function Home() {
   const session = await getServerSession(authOptions);
+  console.log("🚀  HERE>>>>>> :  : Home : session:", session);
 
   return (
     <main className="min-h-screen p-12 bg-gradient-to-br from-slate-100 to-slate-300">

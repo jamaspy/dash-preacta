@@ -1,6 +1,6 @@
 import React from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { headings } from "./data";
+import { Tabs } from "@/components/ui/tabs";
+
 import {
   DefinitionsDashboard,
   DetailsDashboard,
@@ -9,6 +9,7 @@ import {
   NurtureCycleDashboard,
   SummaryDashboard,
 } from "../dashboards";
+
 import TabHeadings from "./headings";
 
 export const TabOptions = () => {
