@@ -1,143 +1,51 @@
-import { Contact } from "./contact.model";
-import { User } from "./user.model";
-
 export interface Job {
-  jobId: number;
-  jobTitle: string;
-  location: {
-    locationId: number;
-    name: string;
-    area: {
-      areaId: number;
-      name: string;
-    };
-  };
-  company: {
-    companyId: number;
-    name: string;
-    status: {
-      statusId: number;
-      name: string;
-      active: boolean;
-      default: boolean;
-    };
-    owner: User;
-  };
-  contact: Contact;
-  status: {
-    statusId: number;
-    name: string;
-    active: boolean;
-    default: boolean;
-  };
-  source: string;
-  userFavourite: boolean;
-  jobDescription: string;
-  numberOfJobs: number;
-  workplaceAddress: {
-    addressId: string;
-    name: string;
-    street: string[];
-    city: string;
-    state: string;
-    postalCode: string;
-    country: string;
-    countryCode: string;
-    phone: string;
-    fax: string;
-    url: string;
-  };
-  category: {
-    categoryId: number;
-    name: string;
-    subCategory: {
-      subCategoryId: number;
-      name: string;
-    };
-  };
-  start: {
-    immediate: boolean;
-    relative: {
-      period: number;
-      unit: string;
-    };
-    date: string;
-  };
-  endDate: string;
-  workShift: {
-    startTime: string;
-    endTime: string;
-    workDays: string[];
-  };
-  duration: {
-    period: number;
-    unit: string;
-  };
-  workType: {
-    workTypeId: number;
-    name: string;
-    ratePer: string;
-  };
-  jobType: string;
-  salary: {
-    ratePer: string;
-    rateLow: number;
-    rateHigh: number;
-    currency: string;
-    timePerWeek: number;
-  };
-  fee: {
-    rateType: string;
-    rate: number;
-    estimatedTotal: number;
-    currency: string;
-  };
-  otherContacts: Contact[];
-  skillTags: {
-    matchAll: boolean;
-    tags: string[];
-  };
-  custom: {
-    fieldId: number;
-    name: string;
-    type: string;
-    value: any;
-  }[];
-  owner: User;
-  recruiters: User[];
-  partnerActions: {
-    actionId: string;
-    actionName: string;
-    reference: string;
-    stage: string;
-    status: string;
-    result: {
-      score: number;
-      url: string;
-      urlType: string;
-    };
-    submittedAt: string;
-    submittedBy: User;
-    updatedAt: string;
-    updatedBy: User;
-  }[];
-  createdBy: User;
-  createdAt: string;
-  updatedBy: User;
-  updatedAt: string;
-  closedBy: User;
-  closedAt: string;
-  statistics: {
-    applications: {
-      new: number;
-      active: number;
-      total: number;
-    };
-  };
-  links: {
-    self: string;
-    attachments: string;
-    applications: string;
-    notes: string;
-  };
+  JoborderId: number;
+  JobTitle: string;
+  Source: string;
+  CompanyId: number;
+  CompanyName: string;
+  ContactId: number;
+  ContactName: string;
+  JoborderStatus: string;
+  NumberOfJobs: number;
+  StartImmediate: boolean;
+  StartRelativePeriod: number | null;
+  StartRelativeUnit: string | null;
+  DurationPeriod: number | null;
+  DurationUnit: string | null;
+  SalaryUnit: string;
+  SalaryRateLow: number | null;
+  SalaryRateHigh: number | null;
+  HoursPerWeek: number | null;
+  DaysPerWeek: number | null;
+  FeeRateType: string | null;
+  FeeRate: number | null;
+  FeeEstimatedTotal: number | null;
+  LocationId: number | null;
+  LocationName: string | null;
+  WorkType: string;
+  OwnerId: number;
+  Owner: string;
+  ConsultantId: string;
+  Consultant: string;
+  ConsultantId2: string | null;
+  Consultant2: string | null;
+  ConsultantId3: string | null;
+  Consultant3: string | null;
+  ConsultantId4: string | null;
+  Consultant4: string | null;
+  CreatedById: number;
+  CreatedBy: string;
+  CreatedAt: Date;
+  UpdatedById: number;
+  UpdatedBy: string;
+  UpdatedAt: Date;
+  ClosedById: number | null;
+  ClosedBy: string | null;
+  ClosedAt: Date | null;
+  ClientCategory: string | null;
+  BDaysOpen: number;
+  JobAdderSource: string;
+  JobCategory: string;
+  JobSubCategory: string | null;
 }
