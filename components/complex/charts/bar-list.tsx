@@ -7,7 +7,7 @@ export const BarListChart = ({ data, title }: BarListProps) => {
       <span className="text-tremor-content-strong dark:text-dark-tremor-content-strong font-medium mb-2">
         {title}
       </span>
-      <BarList data={data} className="mx-auto max-w-sm" />
+      <BarList data={data} className="mx-auto max-w-sm" color="violet" />
     </Card>
   );
 };

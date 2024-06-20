@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
-import { NextAuthProvider } from "@/auth/providers";
-import { ThemeProvider } from "@/components/dark-mode/theme-provider";
 const space = Space_Grotesk({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -17,16 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <NextAuthProvider>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <body className={space.className}>{children}</body>
-        </ThemeProvider>
-      </NextAuthProvider>
+      <body className={space.className}>{children}</body>
     </html>
   );
 }

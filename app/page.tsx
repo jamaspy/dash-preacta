@@ -9,7 +9,7 @@ import { getAllJobs } from "@/actions/jobs/get-all-jobs";
 export default async function Home() {
   const session = await getServerSession(authOptions);
   const jobs = await getAllJobs(2820575);
-  console.log("🚀  HERE>>>>>> :  : Home : jobs:", jobs);
+
   return (
     <div className="relative">
       <nav className="w-full sticky top-0 bg-slate-950 flex flex-row items-end justify-end gap-8 pt-4 pr-8">
