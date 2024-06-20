@@ -2,10 +2,10 @@
 
 import { GET_REQUEST } from "@/utils/jobadder/get-request";
 
-export const getJobApplications = async (id: string) => {
+export const getJobApplications = async (id: number) => {
   try {
     const data = await fetch(
-      `${process.env.JOBADDER_BASE_URL}/companies/2820575/jobs/${id}/applications`,
+      `${process.env.JOBADDER_BASE_URL}/jobs/${id}/applications`,
       GET_REQUEST
     );
     const jobs = await data.json();
