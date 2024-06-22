@@ -1,4 +1,4 @@
-import { JobApplication } from "@/models/applications.model";
+import { JobApplication } from "@/models/application.model";
 
 export function countJobTitles(
   applications: JobApplication[]

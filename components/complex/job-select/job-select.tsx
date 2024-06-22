@@ -26,9 +26,9 @@ export const JobSelect = ({ jobs, selectJob }: JobSelectProps) => {
         <SelectGroup>
           <SelectLabel>Select a job</SelectLabel>
           {jobs.map((job: Job) => (
-            <SelectItem key={job.jobId} value={job.jobId.toString()}>
-              {job.jobTitle}{" "}
-              <span className="text-slate-700">[{job.jobId}]</span>
+            <SelectItem key={job.JoborderId} value={job.JoborderId.toString()}>
+              {job.JobTitle}{" "}
+              <span className="text-slate-700">[{job.CompanyName}]</span>
             </SelectItem>
           ))}
         </SelectGroup>

@@ -6,7 +6,7 @@ import { getJobApplications } from "@/actions/jobadder/get-job-applications";
 
 export const JobsOverview = ({ jobs }: { jobs: Job[] }) => {
   const [selectedJob, setSelectedJob] = React.useState<string>("");
-  const jobData = jobs.find((job) => job.jobId.toString() === selectedJob);
+  const jobData = jobs.find((job) => job.JoborderId.toString() === selectedJob);
 
   return (
     <section className="min-h-[88vh] w-full bg-slate-200 p-4">
@@ -14,14 +14,14 @@ export const JobsOverview = ({ jobs }: { jobs: Job[] }) => {
       <div className="mt-4">
         {jobData ? (
           <div>
-            <h2 className="text-xl font-bold">{jobData.jobTitle}</h2>
+            <h2 className="text-xl font-bold">{jobData.JobTitle}</h2>
             <p className="text-md">
               <span className="font-semibold">Status:</span>{" "}
-              {jobData.status.name}
+              {jobData.JoborderStatus}
             </p>
             <p className="text-md">
               <span className="font-semibold">Location:</span>{" "}
-              {jobData.location.name}
+              {jobData.LocationName}
             </p>
           </div>
         ) : (

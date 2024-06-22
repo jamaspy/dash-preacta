@@ -1,6 +1,6 @@
 "use server";
 
-import { JobApplication } from "@/models/applications.model";
+import { JobApplication } from "@/models/application.model";
 import { connectAndQuery } from "@/server";
 
 export const getAllApplications = async (companyId: number) => {
