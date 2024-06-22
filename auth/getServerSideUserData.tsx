@@ -1,12 +1,11 @@
-import { getServerSession } from 'next-auth';
-import { authOptions } from '.';
+import { auth } from ".";
 
 export const getServerSideUserData = async () => {
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   const user = session?.user;
 
   if (!user) {
-    throw new Error('Unable to return user id');
+    throw new Error("Unable to return user id");
   }
 
   return user;

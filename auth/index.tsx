@@ -1,75 +1,63 @@
-// import { compare } from 'bcryptjs';
-import type { NextAuthOptions } from "next-auth";
+// // import { compare } from 'bcryptjs';
+
 import type { Adapter } from "next-auth/adapters";
 import GoogleProvider from "next-auth/providers/google";
+import Resend from "next-auth/providers/resend";
 import { XataAdapter } from "@auth/xata-adapter";
 import { XataClient } from "@/xata/client";
 
-export const authOptions: NextAuthOptions = {
+import NextAuth from "next-auth";
+import SignInEmail from "@/components/complex/auth/email/signin";
+import { resend } from "./resend";
+
+const baseUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : "http://localhost:3000";
+
+export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: XataAdapter(XataClient) as Adapter,
-  pages: {
-    signIn: "/login",
-  },
-  session: {
-    strategy: "jwt",
-  },
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    Resend({
+      from: "no-reply@disi.au",
+      sendVerificationRequest({
+        identifier: email,
+        url,
+        provider: { server, from },
+      }) {
+        const emailVerificationLink = new URL(url);
+        emailVerificationLink.searchParams.set(
+          "callbackUrl",
+          `${baseUrl}/dashboards`
+        );
+        const newLink = emailVerificationLink.href;
+        resend.emails.send({
+          from: from,
+          to: [email],
+          subject:
+            "This is your secure link to sign in to Preacta Talent Intelligence",
+          react: SignInEmail({
+            url: newLink,
+          }),
+        });
+      },
     }),
-    // CredentialsProvider({
-    //   name: 'Sign in',
-    //   credentials: {
-    //     email: {
-    //       label: 'Email',
-    //       type: 'email',
-    //       placeholder: 'example@example.com',
-    //     },
-    //     password: { label: 'Password', type: 'password' },
-    //   },
-    //   async authorize(credentials) {
-    //     if (!credentials?.email || !credentials.password) {
-    //       return null;
-    //     }
-
-    //     const user = await xata.db.nextauth_users
-    //       .filter({ email: credentials.email })
-    //       .getFirst();
-
-    //     if (!user || !(await compare(credentials.password, user.password!))) {
-    //       return null;
-    //     }
-    //     return {
-    //       id: user.id,
-    //       email: user.email,
-    //       name: user.name,
-    //       randomKey: 'cooperthedogisapoodleandisgreattothrowaballwith',
-    //     };
-    //   },
-    // }),
   ],
+  pages: {
+    signIn: "/auth/login",
+    newUser: "/auth/newuser",
+    verifyRequest: "/auth/checkemail",
+  },
   callbacks: {
-    session: ({ session, token }) => {
-      return {
-        ...session,
-        user: {
-          ...session.user,
-          id: token.id,
-          randomKey: token.randomKey,
-        },
-      };
-    },
-    jwt: ({ token, user }) => {
-      if (user) {
-        const u = user as unknown as any;
-        return {
-          ...token,
-          id: u.id,
-          randomKey: u.randomKey,
-        };
+    async redirect({ url, baseUrl }) {
+      // Allows relative URLs to be used
+      if (url.startsWith("/")) {
+        return `${baseUrl}/dashboards`;
       }
-      return token;
+      // Allows external URLs
+      else if (new URL(url).origin === baseUrl) {
+        return `${baseUrl}/dashboards`;
+      }
+      return baseUrl;
     },
   },
-};
+});

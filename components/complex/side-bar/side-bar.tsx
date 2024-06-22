@@ -47,7 +47,7 @@ export const SideBar = () => {
               <span className="sr-only">Default Dashboards</span>
             </Button>
           </Link>
-          <Link href="/dashboards">
+          <Link href="/custom">
             <Button variant="ghost" size="icon" className="">
               <LayoutPanelLeft className="h-[1.6rem] w-[1.6rem] rotate-0 scale-100 transition-all dark:hover:text-blue-800 dark:text-[#1B83BD]" />
               <span className="sr-only">Create Your Own Dashboards</span>
